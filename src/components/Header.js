@@ -36,10 +36,10 @@ class Header extends React.Component {
         <div>
           <Link to="/search" data-testid="link-to-search">Pesquisar</Link>
         </div>
-        <div >
+        <div>
           <Link to="/favorites" data-testid="link-to-favorites">Músicas Favoritas</Link>
         </div>
-        <div >
+        <div>
           <Link to="/profile" data-testid="link-to-profile">Perfil</Link>
         </div>
       </header>
