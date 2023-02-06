@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
 
 class MusicCard extends React.Component {
@@ -37,6 +38,7 @@ class MusicCard extends React.Component {
                 {' '}
                 <code>audio</code>
               </audio>
+              <input type="checkbox" />
             </div>
           )))
 
@@ -47,3 +49,7 @@ class MusicCard extends React.Component {
 }
 
 export default MusicCard;
+
+MusicCard.propTypes = {
+  id: PropTypes.string.isRequired,
+};
