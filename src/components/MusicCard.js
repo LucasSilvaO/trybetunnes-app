@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
+import { addSong } from '../services/favoriteSongsAPI';
 
 class MusicCard extends React.Component {
   state = {
     musics: [],
+    favoriteSongs: [],
+    loading: false,
   };
 
   componentDidMount() {
@@ -20,9 +23,29 @@ class MusicCard extends React.Component {
     });
   };
 
+  favoriteSong = async (event) => {
+    const { musics, favoriteSongs } = this.state;
+    this.setState({
+      loading: true,
+    });
+    const { target: { name, checked } } = event;
+    console.log(checked);
+    localStorage.setItem(name, JSON.stringify(true));
+    const favorite = musics[0].filter((track) => track.trackId === parseInt(name, 10));
+    await addSong(favorite);
+    this.setState({
+      favoriteSongs: [...favoriteSongs, favorite],
+      loading: false,
+    });
+  };
+
   render() {
-    const { musics } = this.state;
-    console.log(musics);
+    const { musics, loading } = this.state;
+    if (loading) {
+      return (
+        <div>Carregando...</div>
+      );
+    }
     return (
       <div>
         {
@@ -38,7 +61,18 @@ class MusicCard extends React.Component {
                 {' '}
                 <code>audio</code>
               </audio>
-              <input type="checkbox" />
+              <label htmlFor="favorite-songs">
+                Favorita
+                <input
+                  id="favorite-songs"
+                  name={ `${music.trackId}` }
+                  onChange={ this.favoriteSong }
+                  type="checkbox"
+                  data-testid={ `checkbox-music-${music.trackId}` }
+                  checked={ JSON.parse(localStorage.getItem(music.trackId)) }
+                />
+              </label>
+
             </div>
           )))
 
