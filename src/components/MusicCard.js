@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class MusicCard extends React.Component {
   state = {
@@ -21,6 +21,14 @@ class MusicCard extends React.Component {
     this.setState({
       musics: [tracks],
     });
+    this.setState({
+      loading: true,
+    });
+    const favoriteStoraged = await getFavoriteSongs();
+    this.setState({
+      loading: false,
+      favoriteSongs: favoriteStoraged,
+    });
   };
 
   favoriteSong = async (event) => {
@@ -29,14 +37,30 @@ class MusicCard extends React.Component {
       loading: true,
     });
     const { target: { name, checked } } = event;
-    console.log(checked);
-    localStorage.setItem(name, JSON.stringify(true));
-    const favorite = musics[0].filter((track) => track.trackId === parseInt(name, 10));
-    await addSong(favorite);
+    if (checked) {
+      const favorite = musics[0].filter((track) => track.trackId === parseInt(name, 10));
+      await addSong(favorite);
+      this.setState({
+        favoriteSongs: [...favoriteSongs, favorite],
+      });
+    } else {
+      const excMusic = musics[0].find((track) => track.trackId === parseInt(name, 10));
+      const filteredSongs = favoriteSongs.filter((track) => (
+        track[0].trackId !== excMusic.trackId));
+      this.setState({
+        loading: false,
+        favoriteSongs: filteredSongs,
+      }, localStorage.setItem('favorite_songs', JSON.stringify(filteredSongs)));
+    }
     this.setState({
-      favoriteSongs: [...favoriteSongs, favorite],
       loading: false,
     });
+
+    if (JSON.parse(localStorage.getItem(name))) {
+      localStorage.removeItem(name);
+    } else {
+      localStorage.setItem(name, JSON.stringify(true));
+    }
   };
 
   render() {
@@ -61,14 +85,14 @@ class MusicCard extends React.Component {
                 {' '}
                 <code>audio</code>
               </audio>
-              <label htmlFor="favorite-songs">
+              <label htmlFor={ `${music.trackName}` }>
                 Favorita
                 <input
-                  id="favorite-songs"
+                  data-testid={ `checkbox-music-${music.trackId}` }
+                  id={ `${music.trackName}` }
                   name={ `${music.trackId}` }
                   onChange={ this.favoriteSong }
                   type="checkbox"
-                  data-testid={ `checkbox-music-${music.trackId}` }
                   checked={ JSON.parse(localStorage.getItem(music.trackId)) }
                 />
               </label>
