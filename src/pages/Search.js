@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Search.css';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
@@ -47,25 +48,27 @@ class Search extends React.Component {
 
     if (filtered.length > 0) {
       return (
-        <div>
+        <div className="search_container">
           <Header />
-          <form>
-            <input
-              value={ artist }
-              type="text"
-              data-testid="search-artist-input"
-              name="artist"
-              onChange={ this.handleChange }
-            />
-            <button
-              data-testid="search-artist-button"
-              disabled={ artist.length < minumum }
-              onClick={ this.searchArtist }
-            >
-              Pesquisar
+          <div className="search_input_container">
+            <form>
+              <input
+                value={ artist }
+                type="text"
+                data-testid="search-artist-input"
+                name="artist"
+                onChange={ this.handleChange }
+              />
+              <button
+                data-testid="search-artist-button"
+                disabled={ artist.length < minumum }
+                onClick={ this.searchArtist }
+              >
+                Pesquisar
 
-            </button>
-          </form>
+              </button>
+            </form>
+          </div>
           <div>
             { frase }
           </div>
@@ -90,25 +93,28 @@ class Search extends React.Component {
     }
 
     return (
-      <div data-testid="page-search">
+      <div data-testid="page-search" className="search_container">
         <Header />
-        <form>
-          <input
-            value={ artist }
-            type="text"
-            data-testid="search-artist-input"
-            name="artist"
-            onChange={ this.handleChange }
-          />
-          <button
-            data-testid="search-artist-button"
-            disabled={ artist.length < minumum }
-            onClick={ this.searchArtist }
-          >
-            Pesquisar
+        <div className="search_input_container">
+          <form>
+            <input
+              value={ artist }
+              type="text"
+              data-testid="search-artist-input"
+              name="artist"
+              placeholder="DIGITE SUA PESQUISA"
+              onChange={ this.handleChange }
+            />
+            <button
+              data-testid="search-artist-button"
+              disabled={ artist.length < minumum }
+              onClick={ this.searchArtist }
+            >
+              Pesquisar
 
-          </button>
-        </form>
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

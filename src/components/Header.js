@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import trybetunnesLogo from '../trybetunnes.svg';
+import searchIcon from '../searchIcon.svg';
+import favIcon from '../favIcon.svg';
+import perfilIcon from '../perfilIcon.svg';
 import { getUser } from '../services/userAPI';
 
 class Header extends React.Component {
@@ -29,18 +33,23 @@ class Header extends React.Component {
     }
     return (
       <header data-testid="header-component">
-        <h1>Cabeçalho</h1>
+        <img src={ trybetunnesLogo } alt="logo" id="logo" />
         <h2 data-testid="header-user-name">
           {`Bem vindo ${name}.`}
         </h2>
-        <div>
-          <Link to="/search" data-testid="link-to-search">Pesquisar</Link>
-        </div>
-        <div>
-          <Link to="/favorites" data-testid="link-to-favorites">Músicas Favoritas</Link>
-        </div>
-        <div>
-          <Link to="/profile" data-testid="link-to-profile">Perfil</Link>
+        <div className="menu_container">
+          <div>
+            <img src={ searchIcon } alt="search icon" />
+            <Link to="/search" data-testid="link-to-search">Pesquisar</Link>
+          </div>
+          <div>
+            <img src={ favIcon } alt="favorite icon" />
+            <Link to="/favorites" data-testid="link-to-favorites">Músicas Favoritas</Link>
+          </div>
+          <div>
+            <img src={ perfilIcon } alt="perfil icon" />
+            <Link to="/profile" data-testid="link-to-profile">Perfil</Link>
+          </div>
         </div>
       </header>
     );
