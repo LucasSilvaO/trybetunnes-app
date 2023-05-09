@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 class MusicCard extends React.Component {
   state = {
@@ -37,13 +37,14 @@ class MusicCard extends React.Component {
       loading: true,
     });
     const { target: { name, checked } } = event;
+    const favorite = musics[0].filter((track) => track.trackId === parseInt(name, 10));
     if (checked) {
-      const favorite = musics[0].filter((track) => track.trackId === parseInt(name, 10));
       await addSong(favorite);
       this.setState({
         favoriteSongs: [...favoriteSongs, favorite],
       });
     } else {
+      await removeSong(favorite);
       const excMusic = musics[0].find((track) => track.trackId === parseInt(name, 10));
       const filteredSongs = favoriteSongs.filter((track) => (
         track[0].trackId !== excMusic.trackId));
