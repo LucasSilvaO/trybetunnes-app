@@ -35,29 +35,31 @@ class Login extends React.Component {
       return (<div>Carregando...</div>);
     }
     return (
-      <div data-testid="page-login" className="login_body">
-        <img src={ trybetunnesLogo } alt="logo" />
-        <form>
-          <label htmlFor="name">
-            <input
-              id="name"
-              name="nome"
-              type="text"
-              data-testid="login-name-input"
-              placeholder="Qual o seu nome?"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            id="button_login"
-            data-testid="login-submit-button"
-            disabled={ nome.length < nameMinimum }
-            onClick={ this.handleClick }
-          >
-            Entrar
+      <div className="login_teste">
+        <div data-testid="page-login" className="login_body">
+          <img src={ trybetunnesLogo } alt="logo" />
+          <form>
+            <label htmlFor="name">
+              <input
+                id="name"
+                name="nome"
+                type="text"
+                data-testid="login-name-input"
+                placeholder="Qual o seu nome?"
+                onChange={ this.handleChange }
+              />
+            </label>
+            <button
+              id="button_login"
+              data-testid="login-submit-button"
+              disabled={ nome.length < nameMinimum }
+              onClick={ this.handleClick }
+            >
+              Entrar
 
-          </button>
-        </form>
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

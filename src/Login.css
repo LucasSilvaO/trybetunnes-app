@@ -1,4 +1,7 @@
-
+.login_teste {
+    display: flex;
+    justify-content: center;
+}
 .login_body {
     background-color:#FFFF;
     box-shadow: 0px 0px 26px rgba(68, 73, 85, 0.2);

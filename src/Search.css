@@ -1,15 +1,23 @@
+body {
+    background: linear-gradient(123.66deg, #003BE5 12.08%, #00D5E2 86.52%);
+
+    height: 1080px;
+  }
 
 .search_container {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+
 }
 
 .search_container header {
-    background-color: aliceblue;
+    background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
-    height: 920px;
+
     width: 250px;
+    height: 1080px;
     border-radius: 20px;
 }
 
@@ -18,6 +26,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    width: 250px;
 }
 
 .menu_container div {
@@ -77,4 +86,59 @@
     color: #FFFFFF;
     font-size: 14px;
     font-weight: 700;
+}
+
+.album_card {
+    margin: 25px 25px;
+}
+.album_card img {
+    width: 200px;
+    height: 200px;
+  }
+
+.album_card p {
+    font-family: 'Epilogue';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12.0698px;
+    line-height: 150%;
+    color: #3D495C;
+}
+
+.album_card h3 {
+    color: #3D495C;
+}
+
+.albuns_container{
+    display: flex;
+    flex-direction: row;
+    background-color: #EFF3F9;
+    border-radius: 20px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.search_and_albuns_container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.result_container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color:#EFF3F9;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#result_phrase {
+    font-family: 'Epilogue';
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #003BE5;
 }

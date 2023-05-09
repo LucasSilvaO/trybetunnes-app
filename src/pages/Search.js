@@ -50,44 +50,49 @@ class Search extends React.Component {
       return (
         <div className="search_container">
           <Header />
-          <div className="search_input_container">
-            <form>
-              <input
-                value={ artist }
-                type="text"
-                data-testid="search-artist-input"
-                name="artist"
-                onChange={ this.handleChange }
-              />
-              <button
-                data-testid="search-artist-button"
-                disabled={ artist.length < minumum }
-                onClick={ this.searchArtist }
-              >
-                Pesquisar
-
-              </button>
-            </form>
-          </div>
-          <div>
-            { frase }
-          </div>
-          {
-            filtered[0].length > 0 ? (filtered[0].map((album, index) => (
-              <div key={ index }>
-                <img src={ album.artworkUrl100 } alt="Arte do Album" />
-                <h3>{album.artistName}</h3>
-                <p>{album.collectionName}</p>
-                <Link
-                  to={ `/album/${album.collectionId}` }
-                  data-testid={ `link-to-album-${album.collectionId}` }
+          <div className="search_and_albuns_container">
+            <div className="search_input_container">
+              <form>
+                <input
+                  value={ artist }
+                  type="text"
+                  data-testid="search-artist-input"
+                  name="artist"
+                  onChange={ this.handleChange }
+                />
+                <button
+                  data-testid="search-artist-button"
+                  disabled={ artist.length < minumum }
+                  onClick={ this.searchArtist }
                 >
-                  Página do Album
+                  Pesquisar
 
-                </Link>
+                </button>
+              </form>
+            </div>
+            <div className="result_container">
+              <p id="result_phrase">
+                { frase }
+              </p>
+              <div className="albuns_container">
+                {
+                  filtered[0].length > 0 ? (filtered[0].map((album, index) => (
+                    <div key={ index } className="album_card">
+
+                      <Link
+                        to={ `/album/${album.collectionId}` }
+                        data-testid={ `link-to-album-${album.collectionId}` }
+                      >
+                        <img src={ album.artworkUrl100 } alt="Arte do Album" />
+                        <h3>{album.artistName}</h3>
+                        <p>{album.collectionName}</p>
+                      </Link>
+                    </div>
+                  ))) : (<p> Nenhum álbum foi encontrado </p>)
+                }
               </div>
-            ))) : (<p> Nenhum álbum foi encontrado </p>)
-          }
+            </div>
+          </div>
         </div>
       );
     }
